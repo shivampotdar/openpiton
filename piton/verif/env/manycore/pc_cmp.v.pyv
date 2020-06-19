@@ -256,6 +256,29 @@ endtask // get_thread_status
                     spc0_inst_done <= `PICO_CORE0.launch_next_insn;
                     spc0_phy_pc_w <= {{16{`PICO_CORE0.reg_pc[31]}}, `PICO_CORE0.reg_pc[31:0]};
                 end
+        `else // RTL_PICO0
+        `ifdef RTL_WARPV0
+                assign spc0_thread_id = 2'b00;
+                assign spc0_rtl_pc = spc0_phy_pc_w;
+
+                always @*
+                begin
+                    if (`PICO_CORE0.pico_int == 1'b1)
+                    begin
+                        active_thread[(0*4)] = 1'b1;
+                        active_thread[(0*4)+1] = 1'b1;
+                        active_thread[(0*4)+2] = 1'b1;
+                        active_thread[(0*4)+3] = 1'b1;
+                    end
+                end
+
+                always @(posedge clk) begin
+                    //spc0_inst_done <= `PICO_CORE0.launch_next_insn;
+                    spc0_inst_done <= 1'b1;
+                    //spc0_phy_pc_w <= {{16{`PICO_CORE0.reg_pc[31]}}, `PICO_CORE0.reg_pc[31:0]};
+                    spc0_phy_pc_w <= 48'b0;
+                end                
+        `endif // RTL_WARPV0
         `endif // RTL_PICO0
         `endif // RTL_ARIANE0
         `endif // RTL_SPARC0
