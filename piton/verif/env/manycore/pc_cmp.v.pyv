@@ -263,7 +263,7 @@ endtask // get_thread_status
 
                 always @*
                 begin
-                    if (`PICO_CORE0.pico_int == 1'b1)
+                    if (`WARPV_CORE0.pico_int == 1'b1)
                     begin
                         active_thread[(0*4)] = 1'b1;
                         active_thread[(0*4)+1] = 1'b1;
