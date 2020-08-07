@@ -2807,21 +2807,7 @@ sub parse_args
     $ENV{PITON_NETWORK_CONFIG}="2d_mesh";
   }
 
-  # Set ISA to choose compilation flow based on ISA
-  if ($opt{ost1}) {
-    $opt{sparcv9} = 1 ;
-    print "$prg: Building/running for sparcv9\n" ;
-  }
-  if ($opt{pico} or $opt{warpv}) {
-    $opt{rv32} = 1 ;
-    print "$prg: Building/running for rv32\n" ;
-  }
-  if ($opt{ariane}) {
-    $opt{rv64} = 1 ;
-    print "$prg: Building/running for rv64\n" ;
-  }
-
-------  $ENV{PITON_OST1}     = $opt{ost1};
+  $ENV{PITON_OST1}     = $opt{ost1};
   $ENV{PITON_PICO}     = $opt{pico};
   $ENV{PITON_PICO_HET} = $opt{pico_het};
   $ENV{PITON_ARIANE}   = $opt{ariane};
@@ -2833,12 +2819,6 @@ sub parse_args
   push (@{$opt{config_rtl}}, "PITON_ARIANE")   if ($opt{ariane});
   push (@{$opt{config_rtl}}, "WT_DCACHE")      if ($opt{ariane});
   push (@{$opt{config_rtl}}, "PITON_WARPV")    if ($opt{warpv});
-
-
-  if ($opt{pico} or $opt{pico_het} or $opt{ariane} or $opt{warpv}) {
-    push (@{$opt{config_rtl}}, "NO_MRA_VAL") ;
-    push (@{$opt{config_rtl}}, "NO_SLAM_RANDOM") ;
-  }
 
   my $pton_x_tiles="";
   my $pton_y_tiles="";
