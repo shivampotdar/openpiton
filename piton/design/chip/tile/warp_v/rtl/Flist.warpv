@@ -7,3 +7,4 @@ include/sp_default.vh
 include/sp_verilog.vh
 spout/warp-v_openpiton.sv
 spout/warp-v_openpiton_gen.sv
+warpv_reset.sv
