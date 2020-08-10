@@ -15,7 +15,7 @@ out/warp-v_openpiton.sv: warp-v_openpiton.tlv ./submodule/warp-v.tlv
 
 compile: .rtl/spout/warp-v_openpiton.sv
 
-all: verif
+all: compile
 
 clean:
 	rm -rf rtl/spout
