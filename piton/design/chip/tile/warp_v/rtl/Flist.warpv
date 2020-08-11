@@ -1,10 +1,4 @@
-include/clk_gate.sv
-include/pseudo_rand.sv
-include/pseudo_rand_gen.sv
-include/sandpiper.vh
-include/sandpiper_gen.vh
-include/sp_default.vh
-include/sp_verilog.vh
 spout/warp-v_openpiton.sv
-spout/warp-v_openpiton_gen.sv
-warpv_reset.sv
+warpv_reset.v
++incdir+include/
++incdir+spout/

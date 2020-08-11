@@ -357,6 +357,10 @@ die ("DIE. -ariane and -pico/-pico_het cannot be set simultaneously") if ($opt{a
 die ("DIE. -pico and -pico_het cannot both be set") if ($opt{pico} && $opt{pico_het}) ;
 die ("DIE. -warpv and -pico/-pico-het/-ariane cannot be set simultaneously") if ($opt{warpv} && ($opt{pico}|| $opt{pico_het} || $opt{ariane}));
 
+if ($opt{warpv}) {
+  system("make -C $ENV{PITON_ROOT}/piton/design/chip/tile/warp_v")
+}
+
 # Setting ost1 by default. This works better than default to 1
 # for heterogeneous-ISA stuff
 if (!$opt{pico} && !$opt{ariane} && !$opt{warpv}) {
@@ -1553,7 +1557,7 @@ sub generic_sim_build
       $build_cmd .= "--top-module cmp_top " ;
       $build_cmd .= "-Wno-fatal " ;
       $build_cmd .= "-Wno-BLKANDNBLK " ;
-      $build_cmd .= "-Wno-TIMESCALEMOD " ;
+      # $build_cmd .= "-Wno-TIMESCALEMOD " ;
       $build_cmd .= "-DPITON_DPI " ;
       $build_cmd .= "--unroll-count 256 " ;
       $build_cmd .= "-CFLAGS -DVERILATOR " ;
@@ -2292,7 +2296,7 @@ sub assemble_diag
         if ($opt{pico}) {
           $ENV{RV32_MARCH} = "rv32ima" ;
         }
-      } else if ($opt{warpv}) {
+      } elsif ($opt{warpv}) {
           $ENV{RV32_MARCH} = "rv32im" ;
         } else {
           $ENV{RV32_MARCH} = $opt{rv32_march} ;
@@ -2851,7 +2855,7 @@ sub parse_args
     } elsif ($opt{ariane}) {
         push (@{$opt{config_rtl}}, "RTL_ARIANE" . $i);
     } elsif ($opt{warpv}) {
-        push (@{opt{config_rtl}}, "RTL_WARPV" . $i);
+        push (@{$opt{config_rtl}}, "RTL_WARPV" . $i);
     } elsif ($opt{ost1}) {
         push (@{$opt{config_rtl}}, "RTL_SPARC" . $i);
     }
