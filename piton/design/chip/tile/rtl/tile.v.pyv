@@ -1076,6 +1076,7 @@ if (TILE_TYPE == `WARPV_TILE) begin : g_warpv_core
     ///////////////////
     //   WARPV Core  //
     ///////////////////
+    wire warpv_int;
 
     warpv_openpiton core(
         .clk                                 (clk_gated),
@@ -1101,7 +1102,8 @@ if (TILE_TYPE == `WARPV_TILE) begin : g_warpv_core
         .l15_transducer_returntype           (l15_transducer_returntype),
         .l15_transducer_data_0               (l15_transducer_data_0),
         .l15_transducer_data_1               (l15_transducer_data_1),
-        .transducer_l15_req_ack              (transducer_l15_req_ack)
+        .transducer_l15_req_ack              (transducer_l15_req_ack),
+        .warpv_int                           (warpv_int)
     );
 
     warpv_reset warpv_reset(
