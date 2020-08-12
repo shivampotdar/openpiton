@@ -358,7 +358,9 @@ die ("DIE. -pico and -pico_het cannot both be set") if ($opt{pico} && $opt{pico_
 die ("DIE. -warpv and -pico/-pico-het/-ariane cannot be set simultaneously") if ($opt{warpv} && ($opt{pico}|| $opt{pico_het} || $opt{ariane}));
 
 if ($opt{warpv}) {
-  system("make -C $ENV{PITON_ROOT}/piton/design/chip/tile/warp_v")
+  system("make -C $ENV{PITON_ROOT}/piton/design/chip/tile/warp_v");
+  my $warpv_make_rslt = `cat $ENV{PITON_ROOT}/piton/design/chip/tile/warp_v/rtl/spout/status` ;
+  die ("DIE. warp-v compilation failed (in sandpiper)!") if($warpv_make_rslt != 0) ;
 }
 
 # Setting ost1 by default. This works better than default to 1
