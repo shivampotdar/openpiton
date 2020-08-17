@@ -1080,7 +1080,7 @@ if (TILE_TYPE == `WARPV_TILE) begin : g_warpv_core
 
     warpv_openpiton core(
         .clk                                 (clk_gated),
-        .reset                               (!rst_n_f),
+        .reset_op_in                         (rst_n_f),
         .l15_transducer_ack                  (l15_transducer_ack),
         .l15_transducer_header_ack           (l15_transducer_header_ack),
         .transducer_l15_rqtype               (transducer_l15_rqtype),

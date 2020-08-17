@@ -358,9 +358,8 @@ die ("DIE. -pico and -pico_het cannot both be set") if ($opt{pico} && $opt{pico_
 die ("DIE. -warpv and -pico/-pico-het/-ariane cannot be set simultaneously") if ($opt{warpv} && ($opt{pico}|| $opt{pico_het} || $opt{ariane}));
 
 if ($opt{warpv}) {
-  system("make -C $ENV{PITON_ROOT}/piton/design/chip/tile/warp_v");
-  my $warpv_make_rslt = `cat $ENV{PITON_ROOT}/piton/design/chip/tile/warp_v/rtl/spout/status` ;
-  die ("DIE. warp-v compilation failed (in sandpiper)!") if($warpv_make_rslt != 0) ;
+  `make -C $ENV{PITON_ROOT}/piton/design/chip/tile/warp_v` ;
+  die("DIE. warp-v compilation failed (in sandpiper)!") if($?) ;
 }
 
 # Setting ost1 by default. This works better than default to 1
@@ -2288,7 +2287,7 @@ sub assemble_diag
     if ($opt{rv32}) {
       # RISCV flow for RV32
       if (!$opt{rv32_target_triple}) {
-        if ($opt{pico} or $opt{warpv}) {
+        if ($opt{pico} || $opt{warpv}) {
           $ENV{RV32_TARGET_TRIPLE} = "riscv32-unknown-elf" ;
         }
       } else {
@@ -2304,7 +2303,7 @@ sub assemble_diag
           $ENV{RV32_MARCH} = $opt{rv32_march} ;
       }
       if (!$opt{rv32_mabi}) {
-        if ($opt{pico} or $opt{warpv}) {
+        if ($opt{pico} || $opt{warpv}) {
           $ENV{RV32_MABI} = "ilp32" ;
         }
       } else {
