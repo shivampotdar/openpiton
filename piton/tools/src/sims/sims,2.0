@@ -2297,9 +2297,10 @@ sub assemble_diag
         if ($opt{pico}) {
           $ENV{RV32_MARCH} = "rv32ima" ;
         }
-      } elsif ($opt{warpv}) {
+        elsif ($opt{warpv}) {
           $ENV{RV32_MARCH} = "rv32im" ;
-        } else {
+        }
+      } else {
           $ENV{RV32_MARCH} = $opt{rv32_march} ;
       }
       if (!$opt{rv32_mabi}) {
